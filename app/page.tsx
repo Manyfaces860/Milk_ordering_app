@@ -8,6 +8,7 @@ export default async function Home() {
     width: 'inherit',
   };
   const session = await getServerSession(authOptions)
+  // console.log(session)
   return (
     <div className="flex flex-1 justify-center items-center h-screen w-screen max-[500px]:w-screen" style={myStyle}>
       <main className="font-extrabold text-2xl sm:text-7xl text-cyan-600 -mt-24">
@@ -18,6 +19,8 @@ export default async function Home() {
           .com
         </div>}
         <p className="text-1xl sm:text-4xl font-light flex gap-1">Should we Order. <LuMilk /> </p>
+        <p className="text-1xl sm:text-4xl font-light flex gap-1">role : {session?.user.role}</p>
+        
       </main>
     </div>
   );

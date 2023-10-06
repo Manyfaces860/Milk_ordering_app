@@ -1,9 +1,11 @@
-import React from 'react'
+import React from "react";
 
 const page = () => {
   return (
-    <div className="text-black text-7xl">you request was successfull...........thanks for ordering</div>
-  )
-}
+    <div className="flex justify-center items-center w-screen h-screen">
+      <div className="text-violet-600 text-6xl font-extrabold">Welcome to our Family!!</div>
+    </div>
+  );
+};
 
-export default page
+export default page;

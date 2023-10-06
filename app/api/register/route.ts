@@ -4,8 +4,12 @@ import { z } from 'zod'
 import bcrypt from 'bcrypt'
 
 const schema = z.object({
+    username : z.string().min(3),
+    firstname : z.string().min(3),
+    lastname : z.string().min(3),
     email : z.string().email(),
-    password : z.string()
+    password : z.string(),
+    role : z.string()
 })
 
 export async function POST(req : NextRequest) {
@@ -21,7 +25,11 @@ export async function POST(req : NextRequest) {
     const newUser = await prisma.usertable.create({
         data : {
             email : body.email,
-            hashedPassword : hashedPassword
+            hashedPassword : hashedPassword,
+            firstname : body.firstname,
+            lastname : body.lastname,
+            username : body.username,
+            role : body.role
         }
     })
     return newUser ? NextResponse.json(newUser, {status : 201}) :  NextResponse.json('an error ocurred', {status : 400})
