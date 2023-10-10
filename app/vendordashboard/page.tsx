@@ -12,28 +12,41 @@ interface data {
 
 const VendorDashboard = () => {
   const [dataCame, setDataCame] = useState<data[]>([]);
-  const filterref = useRef<HTMLSelectElement>()
+  const [filter , setFilter] = useState('')
+  const filterref = useRef<HTMLSelectElement>(null)
   useEffect(() => {
     const GetUserData = async () => {
-      const response = await GetAllData("/api/orderdataforvendor", {});
+      const response = await GetAllData("/api/orderdataforvendor", {filter : filterref.current?.value});
       setDataCame(response.data);
     };
     GetUserData();
-  }, [filterref.current?.value]);
+  }, [filter]);
 
   return (
     <div className="flex flex-col flex-1 w-full h-full gap-10 items-center justify-center" style={{width : '90vw'}}>
-      <div className="inline-flex flex-col items-start">
-        <select ref={filterref} className="btn glass btn-wide">
+      <div className="flex items-start md:flex-row flex-col space-x-1 gap-2">
+        <select 
+        ref={filterref} 
+        className="btn glass btn-wide"
+          >
           <option value="">Filter</option>
-          <option value="">week</option>
-          <option value="">month</option>
-          <option value="">year</option>
+          <option value="week">week</option>
+          <option value="month">month</option>
+          <option value="year">year</option>
         </select>
+
+        <button 
+        className="btn btn-primary"
+        onClick={(event) => {
+          event.preventDefault()
+          setFilter(filterref.current?.value!)
+        }}
+        
+        >hit it</button>
       </div>
 
       <div className="overflow-x-auto" style={{width : '90vw' , height : '70vh'}}>
-        <table className="table bg-red-800 rounded-md p-3">
+        <table className="table bg-yellow-900 rounded-md p-3">
           {/* head */}
           <thead>
             <tr>
@@ -51,7 +64,7 @@ const VendorDashboard = () => {
               <tr className="bg-base-200">
                 <th>{item.id}</th>
                 <td>Milk</td>
-                <td>{item.quantity}</td>
+                <td>{item.quantity}ml</td>
                 <td>Krishna</td>
                 <td>{item.deliveredTo}</td>
                 <td>

@@ -15,7 +15,7 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background-color: rgb(220, 214, 214);
+  background-color: plum;
   width: 100vw;
   height: 100vh;
 }
@@ -29,3 +29,4 @@ body {
     font-family: "Proxima Nova", system-ui, sans-serif;
   }
 }
+/* rgb(220, 214, 214) */

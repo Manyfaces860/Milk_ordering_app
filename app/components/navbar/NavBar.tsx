@@ -14,7 +14,7 @@ import RoleChooseForm from "../rolechooseform/RoleChooseForm";
 const NavBar = () => {
   const {status , data : session} = useSession()
   return (
-    <div className="flex justify-between sm:p-3 p-2 font-sans font-normal text-gray-800 backdrop-blur h-fit w-full">
+    <div className="flex gap-1 items-center sm:p-3 p-2 font-sans font-normal text-gray-800 backdrop-blur h-fit w-full">
       <div className="">
         <details className="dropdown">
           <summary className="m-1 btn">
@@ -72,6 +72,9 @@ const NavBar = () => {
       </div>
       <div className="flex">
         {session?.user.role === 'user' && <span><RoleChooseForm /></span> }
+      </div>
+      <div>
+        <Link className="btn btn-primary font-sans font-extrabold" href={'/'}>Home</Link>
       </div>
     </div>
   );

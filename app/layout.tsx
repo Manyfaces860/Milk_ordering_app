@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import NavBar from './components/navbar/NavBar'
 import AuthProvider from './auth/provider'
+import Link from 'next/link'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -21,7 +22,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <AuthProvider>
-          <nav><NavBar /></nav>
+          <nav>
+              <NavBar />
+          </nav>
         </AuthProvider>
           <main className='hero'>{children}</main>
       </body>
