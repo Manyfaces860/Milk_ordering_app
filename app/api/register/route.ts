@@ -6,7 +6,7 @@ import bcrypt from 'bcrypt'
 const schema = z.object({
     username : z.string().min(3),
     firstname : z.string().min(3),
-    lastname : z.string().min(3),
+    lastname : z.string().optional(),
     email : z.string().email(),
     password : z.string(),
     role : z.string()

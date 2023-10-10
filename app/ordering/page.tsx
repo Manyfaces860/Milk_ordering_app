@@ -3,7 +3,7 @@ import ProductChooseForm from '../ProductChooseForm'
 
 const page = () => {
   return (
-    <div><ProductChooseForm /></div>
+    <><ProductChooseForm /></>
   )
 }
 

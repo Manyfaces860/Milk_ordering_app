@@ -50,7 +50,7 @@ export const authOptions : NextAuthOptions = {
     async jwt({ token, user }) {
       // console.log(token)
       if(user) token.role = user.role
-      console.log(token)
+      // console.log(token)
       return token
     },
     async session({ session, token }) {

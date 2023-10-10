@@ -6,8 +6,9 @@ import { FiShoppingCart } from "react-icons/fi";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { CgProfile } from "react-icons/cg";
 import { AiOutlineUserAdd } from "react-icons/ai"
+import { BsBoxSeam } from "react-icons/bs"
 import { useSession } from "next-auth/react";
-import { data } from "autoprefixer";
+import RoleChooseForm from "../rolechooseform/RoleChooseForm";
 
 
 const NavBar = () => {
@@ -42,7 +43,7 @@ const NavBar = () => {
                 <VscSignOut /> Sign-out
               </Link>
             </li>}
-            { status === 'authenticated' && <li>
+            { status === 'authenticated' && session?.user.role === 'user' && <li>
               <Link
                 href={"/ordering"}
                 className="flex items-center gap-1 text-green-500 hover:text-yellow-300 transition-all ease-in"
@@ -58,11 +59,19 @@ const NavBar = () => {
                 <AiOutlineUserAdd /> register
               </Link>
             </li>}
+            { session?.user.role === 'vendor' && <li>
+              <Link
+                href={"/vendordashboard"}
+                className="flex items-center gap-1 text-green-500 hover:text-yellow-300 transition-all ease-in"
+              >
+                <BsBoxSeam /> Orders
+              </Link>
+            </li>}
           </ul>
         </details>
       </div>
       <div className="flex">
-        {/* <p className="font-sans text-gray-700 text-center capitalize">role: {session?.user.user?.name}</p> */}
+        {session?.user.role === 'user' && <span><RoleChooseForm /></span> }
       </div>
     </div>
   );
