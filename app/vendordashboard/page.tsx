@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { GetAllData } from "../utility/GetAllData";
+import Link from "next/link";
 
 interface data {
   id: number;
@@ -11,41 +12,48 @@ interface data {
 }
 
 const VendorDashboard = () => {
-  const [dataCame, setDataCame] = useState<data[]>([]);
-  const [filter , setFilter] = useState('')
-  const filterref = useRef<HTMLSelectElement>(null)
+  const [ dataCame, setDataCame ] = useState<data[]>([]);
+  const [ filter, setFilter ] = useState("");
+  // const [ deliveryStatus, setDeliveryStatus ] = useState()
+  const filterref = useRef<HTMLSelectElement>(null);
   useEffect(() => {
     const GetUserData = async () => {
-      const response = await GetAllData("/api/orderdataforvendor", {filter : filterref.current?.value});
+      const response = await GetAllData("/api/orderdata", {
+        filter: filterref.current?.value,
+      });
       setDataCame(response.data);
     };
     GetUserData();
   }, [filter]);
 
   return (
-    <div className="flex flex-col flex-1 w-full h-full gap-10 items-center justify-center" style={{width : '90vw'}}>
+    <div
+      className="flex flex-col flex-1 w-full h-full gap-10 items-center justify-center"
+      style={{ width: "90vw" }}
+    >
       <div className="flex items-start md:flex-row flex-col space-x-1 gap-2">
-        <select 
-        ref={filterref} 
-        className="btn glass btn-wide"
-          >
+        <select ref={filterref} className="btn glass btn-wide font-sans text-gray-600">
           <option value="">Filter</option>
           <option value="week">week</option>
           <option value="month">month</option>
           <option value="year">year</option>
         </select>
 
-        <button 
-        className="btn btn-primary"
-        onClick={(event) => {
-          event.preventDefault()
-          setFilter(filterref.current?.value!)
-        }}
-        
-        >hit it</button>
+        <button
+          className="btn btn-primary font-sans text-gray-200"
+          onClick={(event) => {
+            event.preventDefault();
+            setFilter(filterref.current?.value!);
+          }}
+        >
+          hit it
+        </button>
       </div>
 
-      <div className="overflow-x-auto" style={{width : '90vw' , height : '70vh'}}>
+      <div
+        className="overflow-x-auto"
+        style={{ width: "90vw", height: "70vh" }}
+      >
         <table className="table bg-yellow-900 rounded-md p-3">
           {/* head */}
           <thead>
@@ -79,9 +87,9 @@ const VendorDashboard = () => {
                   )}
                 </td>
                 <td>
-                  <button className="btn btn-outline btn-secondary">
-                    Delivery?
-                  </button>
+                  <div className="text-md">
+                   
+                  </div>
                 </td>
               </tr>
             ))}

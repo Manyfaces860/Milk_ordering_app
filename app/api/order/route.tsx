@@ -1,9 +1,8 @@
 import { prisma } from "@/prisma/client";
-import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { authOptions } from "../auth/[...nextauth]/route";
 import { getToken } from "next-auth/jwt";
+import moment from "moment";
 
 
 export async function GET(req: NextRequest) {
@@ -27,7 +26,16 @@ export async function POST(req: NextRequest) {
 
     const validation = schema.safeParse(body)
     if (!validation.success) return NextResponse.json({message : "please provide correct order details!"},{status : 400})
+
     body.quantity = (parseFloat(body.quantity)*1000)
+    let planenddate : any 
+    if(body.plan === 'month'){
+        planenddate = moment().add(1, "month").toDate();
+    }
+    else {
+        planenddate = moment().add(1, "day").toDate();
+    }
+    
     const newOrder = await prisma.orderstable.create({
         data : {
             quantity : body.quantity,
@@ -35,10 +43,26 @@ export async function POST(req: NextRequest) {
             deliveredTo : body.streetaddress,
             deliverystatus : false,
             usertableId : parseInt(token?.sub!),
-            customerfeedback : 'nofeedbackyet'
+            customerfeedback : 'nofeedbackyet',
+            actualplanendat : planenddate
         }
     })
-    console.log('created')
+    console.log(newOrder)
     // return NextResponse.redirect(new URL('/success',req.url))
     return NextResponse.json(newOrder , {status : 201})
 }
+// if (newOrder.id) {
+//     let vendorStockInfo = await prisma.inventory.findUnique({
+//         where : {vendorid : newOrder.vendorid}
+//     })
+//     if (vendorStockInfo) {
+//         const newStockInfo = vendorStockInfo.instock - (newOrder.quantity/1000)
+//         const changeInInventory = await prisma.inventory.update({
+//             where : {vendorid : newOrder.vendorid},
+//             data : {
+//                 instock : newStockInfo
+//             }
+//         })
+//         if (!changeInInventory) console.log('changed') 
+//     }
+// }

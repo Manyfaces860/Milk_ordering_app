@@ -7,9 +7,10 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { CgProfile } from "react-icons/cg";
 import { AiOutlineUserAdd } from "react-icons/ai"
 import { BsBoxSeam } from "react-icons/bs"
+import { MdAssignmentTurnedIn } from "react-icons/md"
+import { RiBillFill } from "react-icons/ri"
 import { useSession } from "next-auth/react";
 import RoleChooseForm from "../rolechooseform/RoleChooseForm";
-
 
 const NavBar = () => {
   const {status , data : session} = useSession()
@@ -59,7 +60,7 @@ const NavBar = () => {
                 <AiOutlineUserAdd /> register
               </Link>
             </li>}
-            { session?.user.role === 'vendor' && <li>
+            { <li>
               <Link
                 href={"/vendordashboard"}
                 className="flex items-center gap-1 text-green-500 hover:text-yellow-300 transition-all ease-in"
@@ -67,12 +68,36 @@ const NavBar = () => {
                 <BsBoxSeam /> Orders
               </Link>
             </li>}
+            { status === 'authenticated' && session?.user.role === 'admin' && <li>
+              <Link
+                href={"/addtoinventory"}
+                className="flex items-center gap-1 text-green-500 hover:text-yellow-300 transition-all ease-in"
+              >
+                <BsBoxSeam /> Addmilk
+              </Link>
+            </li>}
+            { status === 'authenticated' && session?.user.role === 'admin' && <li>
+              <Link
+                href={"/assigndelivery"}
+                className="flex items-center gap-1 text-green-500 hover:text-yellow-300 transition-all ease-in"
+              >
+                <MdAssignmentTurnedIn /> AssignDelv
+              </Link>
+            </li>}
+            { status === 'authenticated' && <li>
+              <Link
+                href={"/bill"}
+                className="flex items-center gap-1 text-green-500 hover:text-yellow-300 transition-all ease-in"
+              >
+                <RiBillFill /> Bill
+              </Link>
+            </li>}
           </ul>
         </details>
       </div>
-      <div className="flex">
+      {/* <div className="flex">
         {session?.user.role === 'user' && <span><RoleChooseForm /></span> }
-      </div>
+      </div> */}
       <div>
         <Link className="btn btn-primary font-sans font-extrabold" href={'/'}>Home</Link>
       </div>

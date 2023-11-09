@@ -92,6 +92,7 @@ const RegisterUserForm = () => {
                   <option value={'user'} >Customer</option>
                   <option value={'vendor'} >Vendor</option>
                   <option value={'farmer'} >Farmer</option>
+                  <option value={'deliveryboy'} >Delivery Partner</option>
                 </select>
               </div>
             </div>

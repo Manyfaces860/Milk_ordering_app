@@ -11,16 +11,17 @@ datasource db {
 }
 
 model Usertable {
-  username       String        @default("")
-  firstname      String        @default("")
-  lastname       String        @default("")
-  id             Int           @id @default(autoincrement())
-  email          String        @unique
+  username       String            @default("")
+  firstname      String            @default("")
+  lastname       String            @default("")
+  id             Int               @id @default(autoincrement())
+  email          String            @unique
   hashedPassword String
-  registeredAt   DateTime      @default(now())
-  role           String        @default("user")
+  registeredAt   DateTime          @default(now())
+  role           String            @default("user")
   orders         Orderstable[]
   addresses      Adresses[]
+  extramilk      ExtraMilkRecord[]
 }
 
 model Adresses {
@@ -31,15 +32,21 @@ model Adresses {
 }
 
 model Orderstable {
-  id               Int        @id @default(autoincrement())
-  quantity         Float
-  plan             String
-  deliverystatus   Boolean    @default(false)
-  Usertable        Usertable? @relation(fields: [usertableId], references: [id])
-  usertableId      Int?
-  deliveredTo      String
-  customerfeedback String     @default("")
-  orderedat        DateTime   @default(now())
+  id                      Int             @id @default(autoincrement())
+  quantity                Float
+  plan                    String
+  deliverystatus          Boolean         @default(false)
+  Usertable               Usertable?      @relation(fields: [usertableId], references: [id])
+  usertableId             Int?
+  deliveredTo             String
+  customerfeedback        String          @default("")
+  planstartat             DateTime        @default(now())
+  orignallyplanendat      DateTime        @default(now())
+  actualplanendat         DateTime        @default(now())
+  extramilkquantity       Float           @default(0)
+  extramilkordertotaldays Int             @default(0)
+  extramilkfulfillment    Boolean         @default(false)
+  orderdelivery           OrderDelivery[]
 }
 
 model Account {
@@ -86,4 +93,37 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Inventory {
+  id       Int      @id @default(autoincrement())
+  product  String   @default("milk")
+  fat      Int      @default(0)
+  quantity Int      @default(0)
+  price    Int      @default(0)
+  addedat  DateTime @default(now())
+}
+
+model ExtraMilkRecord {
+  id             Int        @id @default(autoincrement())
+  quantity       Float
+  plan           String
+  deliverystatus Boolean    @default(false)
+  Usertable      Usertable? @relation(fields: [usertableId], references: [id])
+  usertableId    Int?
+}
+
+model OrderDelivery {
+  id               Int          @id @default(autoincrement())
+  day              Int
+  deliverydate     DateTime     @default(now())
+  deliverystatus   Boolean      @default(false)
+  Orderstable      Orderstable? @relation(fields: [orderstableId], references: [id])
+  orderstableId    Int?
+  soldat           Int          @default(0)
+  deliveryboyname  String       @default("")
+  deliveryboyemail String       @default("")
+  assigned         Boolean      @default(false)
+  assigningtime    DateTime
+  assigningdate    String       @default("")
 }

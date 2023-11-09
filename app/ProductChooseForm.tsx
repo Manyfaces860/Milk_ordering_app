@@ -1,13 +1,34 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { AiOutlineReload } from "react-icons/ai";
+import { GetAllData } from "./utility/GetAllData";
+
+interface inventory {
+  id : number
+  product : string
+  instock : number
+  vendorid : number
+}
+
 
 const ProductChooseForm = () => {
   const quantityref = useRef<HTMLInputElement>(null);
   const planref = useRef<HTMLSelectElement>(null);
+  const sellref = useRef<HTMLSelectElement>(null);
   const streetaddressref = useRef<HTMLTextAreaElement>(null);
   const [showloading, setLoading] = useState(false);
   const [order, setOrder] = useState(false);
+  const [inventory, setInventory] = useState<inventory[]>([]);
+
+  useEffect(() => {
+    const GetInventoryData = async () => {
+      const response = await GetAllData("/api/inventoryinfo", {});
+      setInventory(response.data);
+    };
+    GetInventoryData()
+  },[])
+
+
 
   const handleClick = async (
     quantity: number,
@@ -25,7 +46,7 @@ const ProductChooseForm = () => {
         body: JSON.stringify({
           quantity: quantity,
           plan: plan,
-          streetaddress: streetaddress,
+          streetaddress: streetaddress
         }),
       });
       setLoading(false);
@@ -104,7 +125,7 @@ const ProductChooseForm = () => {
                 let quantity = quantityref.current?.value;
                 let plan = planref.current?.value;
                 let streetaddress = streetaddressref.current?.value;
-                await handleClick(parseInt(quantity!), plan!, streetaddress!);
+                await handleClick( parseInt(quantity!), plan!, streetaddress! );
               }}
               type="submit"
             >
@@ -121,3 +142,17 @@ const ProductChooseForm = () => {
   );
 };
 export default ProductChooseForm;
+
+{/* {inventory && <div className="mb-3 flex-1 flex-col flex justify-center items-stretch">
+            <label className="text-indigo-500" htmlFor="pickyourseller">
+              Pick your seller
+            </label>
+            <select
+              ref={sellref}
+              className="text-indigo-800 rounded bg-indigo-200 h-8 p-1 ring-inset ring-red-500"
+              id="pickyourseller"
+            >
+              <option value="">Select seller</option>
+              {inventory.map((seller) => <option value={seller.vendorid}>seller id = {seller.vendorid} ,  product in Inventory  {seller.instock}L</option>)}
+            </select>
+          </div>} */}
