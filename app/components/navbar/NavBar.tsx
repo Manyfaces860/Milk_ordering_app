@@ -10,10 +10,18 @@ import { BsBoxSeam } from "react-icons/bs"
 import { MdAssignmentTurnedIn } from "react-icons/md"
 import { RiBillFill } from "react-icons/ri"
 import { useSession } from "next-auth/react";
-import RoleChooseForm from "../rolechooseform/RoleChooseForm";
+// import RoleChooseForm from "../rolechooseform/RoleChooseForm";
+import { Bebas_Neue } from "next/font/google"
+import { IoMdAdd  } from "react-icons/io";
+import { LuUsers2 } from "react-icons/lu";
+const bebasFont = Bebas_Neue({
+  subsets : ['latin'],
+  weight : ['400'],
+  variable : '--font-bebas'
+})
 
 const NavBar = () => {
-  const {status , data : session} = useSession()
+  const {status , data : session} = useSession();
   return (
     <div className="flex gap-1 items-center sm:p-3 p-2 font-sans font-normal text-gray-800 backdrop-blur h-fit w-full">
       <div className="">
@@ -73,7 +81,7 @@ const NavBar = () => {
                 href={"/addtoinventory"}
                 className="flex items-center gap-1 text-green-500 hover:text-yellow-300 transition-all ease-in"
               >
-                <BsBoxSeam /> Addmilk
+                <IoMdAdd  />Addmilk
               </Link>
             </li>}
             { status === 'authenticated' && session?.user.role === 'admin' && <li>
@@ -92,6 +100,14 @@ const NavBar = () => {
                 <RiBillFill /> Bill
               </Link>
             </li>}
+            { status === 'authenticated' && session?.user.role === 'admin' && <li>
+              <Link
+                href={"/seeusers"}
+                className="flex items-center gap-1 text-green-500 hover:text-yellow-300 transition-all ease-in"
+              >
+                <LuUsers2 /> SeeUsers
+              </Link>
+            </li>}
           </ul>
         </details>
       </div>
@@ -99,7 +115,7 @@ const NavBar = () => {
         {session?.user.role === 'user' && <span><RoleChooseForm /></span> }
       </div> */}
       <div>
-        <Link className="btn btn-primary font-sans font-extrabold" href={'/'}>Home</Link>
+        <Link className={`text-lg ${bebasFont.variable} italic btn btn-outline text-cyan-800`} href={'/'}>Home</Link>
       </div>
     </div>
   );

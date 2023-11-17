@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import React, { useRef, useState } from 'react'
 import { HiOutlineUserCircle } from 'react-icons/hi'
 import { GrCheckmark } from 'react-icons/gr'
+import { myStyle } from '@/app/page';
 
 const ProfileChangeForm = () => {
     const usernameref = useRef<HTMLInputElement>(null);
@@ -41,7 +42,7 @@ const ProfileChangeForm = () => {
         
         return (
     <div>
-        <form action="" className='flex space-x-2 items-center'>
+        <form action="" className='flex space-x-2 items-center flex-col'>
         <div className="border-b border-pink-800 pb-12">
             <h2 className="text-base font-semibold leading-7 text-gray-900">
               Personal Information
@@ -129,13 +130,7 @@ const ProfileChangeForm = () => {
             </div>
           </div>
 
-          <div className="mt-6 flex items-center justify-end gap-x-6">
-            <button
-              type="button"
-              className="text-sm font-semibold leading-6 text-gray-900"
-            >
-              Cancel
-            </button>
+          <div className="mt-3 flex items-center" style={{width : 'inherit'}}>
             <button
               onClick={ async (event) => {
                 event.preventDefault()
@@ -147,7 +142,7 @@ const ProfileChangeForm = () => {
                 await HandleProfileChange(username=username , firstname = firstname ,lastname=lastname , email = email , password = password)
               }}
               type="submit"
-              className="hover:invert rounded-md bg-indigo-600 px-3 py-2 gap-2 flex items-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className="btn btn-warning lowercase"
             > { showloading && <span className='animate-spin' ><HiOutlineUserCircle/></span>}{"  "}
               {currentUserInfo && <span><GrCheckmark/></span> }{"  "}
               Submit

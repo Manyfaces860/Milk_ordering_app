@@ -2,7 +2,7 @@
 import { GetAllData } from "@/app/utility/GetAllData";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
-import { SessionProvider, useSession } from "next-auth/react";
+
 
 interface billData {
   id: number;
@@ -13,8 +13,8 @@ interface billData {
   actualplanendat: string;
 }
 
-const Bill = () => {
-  const {status , data : session} = useSession()
+const Bill = ({ role } : { role : string }) => {
+
   const [data, setData] = useState<billData>();
   const [bill, setBill] = useState(0);
   const [month, setMonth] = useState('');
@@ -42,8 +42,8 @@ const Bill = () => {
 
   return (
     <>
-    { session?.user.role === 'user' &&
-      <div className="flex w-2/4 flex-col p-10 border-2 rounded-lg bg-black">
+    { role === 'user' && data &&
+      <div className="flex w-2/4 flex-col text-red-950 p-10 border-2 rounded-lg bg-red-300">
         <div className="flex justify-center">
           <header>Bill</header>
         </div>
@@ -86,8 +86,8 @@ const Bill = () => {
         </div>
       </div>
     }
-    { session?.user.role === 'admin' &&
-      <div className="flex w-2/4 flex-col p-10 border-2 rounded-lg bg-black">
+    { role === 'admin' && data &&
+      <div className="flex w-2/4 flex-col text-red-950 p-10 border-2 rounded-lg bg-red-300">
         <div className="flex justify-center">
           <header>Admin Bill</header>
         </div>
@@ -115,8 +115,8 @@ const Bill = () => {
           </table>
         </div>
       </div>
-
     }
+    { !data && <p className="font-bold text-center text-red-800" >you have no bills!!</p> }
     </>
   );
 };

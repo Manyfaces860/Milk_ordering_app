@@ -126,4 +126,5 @@ model OrderDelivery {
   assigned         Boolean      @default(false)
   assigningtime    DateTime
   assigningdate    String       @default("")
+  customerfeedback String       @default("")
 }

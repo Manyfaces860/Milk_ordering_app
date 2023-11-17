@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import ProfileChangeForm from "../components/profilechangeform/ProfileChangeForm";
 import Feedback from "../components/feedback/Feedback";
 import { GetAllData } from "../utility/GetAllData";
-import { it } from "node:test";
 
 interface data {
   id : number,
@@ -59,14 +58,14 @@ const Profilepage = () => {
               alt="profile image" 
             />
           </figure>
-          <div className="card-body">
+          <div className="card-body"> 
             <h2 className="card-title">abhishek gupta</h2>
             <p>agbli@gmail.com</p>
-            <div className="card-actions justify-end">
-              <button className="btn btn-primary" onClick={(event) => setChange(true) }>Edit info</button>
-            </div>
+
           </div>
         </div>}
+        <button className="btn btn-primary" onClick={(event) => setChange(true) }>Edit info</button>
+        { change && <button className="btn btn-danger" onClick={() => setChange(false)} >cancel</button> }
         
         <hr className="text-black" />
 
@@ -87,118 +86,29 @@ const Profilepage = () => {
                 <td>Cy Ganderton</td>
                 <td>320403903</td>
               </tr>
-              {/* row 2 */}
-              <tr>
-                <th>2</th>
-                <td>Hart Hagerty</td>
-                <td>320403903</td>
-              </tr>
-              {/* row 2 */}
-              <tr>
-                <th>2</th>
-                <td>Hart Hagerty</td>
-                <td>320403903</td>
-              </tr>
-              {/* row 2 */}
-              <tr>
-                <th>2</th>
-                <td>Hart Hagerty</td>
-                <td>320403903</td>
-              </tr>
-              {/* row 2 */}
-              <tr>
-                <th>2</th>
-                <td>Hart Hagerty</td>
-                <td>320403903</td>
-              </tr>
-              {/* row 2 */}
-              <tr>
-                <th>2</th>
-                <td>Hart Hagerty</td>
-                <td>320403903</td>
-              </tr>
-              {/* row 2 */}
-              <tr>
-                <th>2</th>
-                <td>Hart Hagerty</td>
-                <td>320403903</td>
-              </tr>
-              {/* row 2 */}
-              <tr>
-                <th>2</th>
-                <td>Hart Hagerty</td>
-                <td>320403903</td>
-              </tr>
-              {/* row 2 */}
-              <tr>
-                <th>2</th>
-                <td>Hart Hagerty</td>
-                <td>320403903</td>
-              </tr>
             </tbody>
           </table>
         </div>
-      </div>
-
-      <div className="overflow-x-scroll border-2 p-3 border-purple-800 rounded-md max-w-sm md:w-3/5 md:max-w-xl h-fit">
-        <table className="table text-black">
-          {/* head */}
-          <thead className="text-blue-500">
-            <tr>
-              <th>Order id</th>
-              <th>Name</th>
-              <th>Delivery To</th>
-              <th>Status</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {/* row 1 */}
-            { dataCame.map((item) =>  (<tr key={item.id}>
-              <th key={item.id}>
-                {item.id}
-              </th>
-              <td>
-                <div className="flex items-center space-x-3">
-                  <div className="avatar">
-                    <div className="mask mask-squircle w-12 h-12">
-                      <img
-                        src="https://img.freepik.com/premium-vector/young-smiling-man-avatar-man-with-brown-beard-mustache-hair-wearing-yellow-sweater-sweatshirt-3d-vector-people-character-illustration-cartoon-minimal-style_365941-860.jpg"
-                        alt="Avatar Tailwind CSS Component"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <div className="font-bold">Milk</div>
-                    <div className="text-sm opacity-50">{item.quantity}mL</div>
-                  </div>
-                </div>
-              </td>
-              <td>
-                {item.deliveredTo}
-                <br />
-              </td>
-              <td>
-                {(item.deliverystatus === false) ? <span className="inline-flex items-center rounded-md bg-red-300 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/20">
-                  pending
-                </span> : <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
-                  success
-                </span>}
-              </td>
-              <th>
-                { showFeedback ? <Feedback orderId={item.id} HideFeedbackAgain={HandleSubmitFeedback} HideFeedbackAgainByCancelButton={HandleCancelFeedback} /> : <button 
-                className="btn btn-ghost btn-xs" 
-                onClick={() => setFeedback(true)}
-                >
-                  give feedback
-                </button>}
-              </th>
-            </tr>))}
-          </tbody>
-        </table>
       </div>
     </div>
   );
 };
 
 export default Profilepage;
+
+              {/* <td>
+                {(item.deliverystatus === false) ? <span className="inline-flex items-center rounded-md bg-red-300 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/20">
+                pending
+                </span> : <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
+                success
+                </span>}
+              </td> */}
+              
+              // <th>
+              //   { showFeedback ? <Feedback orderId={item.id} HideFeedbackAgain={HandleSubmitFeedback} HideFeedbackAgainByCancelButton={HandleCancelFeedback} /> : <button 
+              //   className="btn btn-ghost btn-xs" 
+              //   onClick={() => setFeedback(true)}
+              //   >
+              //     give feedback
+              //   </button>}
+              // </th>

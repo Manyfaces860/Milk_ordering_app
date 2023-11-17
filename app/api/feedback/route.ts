@@ -6,18 +6,20 @@ import { prisma } from '@/prisma/client';
 
 const schema = z.object({
     orderId : z.number(),
-    feedback : z.string()
+    feedback : z.string(),
+    deliverydate : z.date()
 })
 
 export async function POST(req : NextRequest) {
     const session = await getServerSession(authOptions)
 
     const body = await req.json()
-    const validation = schema.safeParse(body)
-    if (!validation.success) return NextResponse.json({message : "please provide a valid string"},{status : 400})
+    console.log(body);
+    // const validation = schema.safeParse(body)
+    // if (!validation.success) return NextResponse.json({message : "please provide a valid string"},{status : 400})
 
-    const makingFeedback = await prisma.orderstable.update({
-        where : {id : body.orderId},
+    const makingFeedback = await prisma.orderDelivery.update({
+        where : {id : body.orderId , deliverydate : body.deliverydate},
         data : {
             customerfeedback : body.feedback
         }

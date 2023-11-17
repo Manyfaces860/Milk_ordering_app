@@ -5,10 +5,11 @@ import React from 'react'
 interface Props {
     columnNames : string[],
     columnItems : any[][],
+    showModal : (userId : number) => void;
 }
 
 
-const DynamicTable = ({columnNames , columnItems } : Props) => {
+const DeleteDT = ({columnNames , columnItems , showModal } : Props) => {
   return (
     <>
         <div
@@ -23,7 +24,9 @@ const DynamicTable = ({columnNames , columnItems } : Props) => {
             </tr>
           </thead>
           <tbody>
-            {columnItems.map((item) => <tr key={item[4]} className="bg-base-200">{item.map((object) => <td>  {object}  </td> )}</tr>)}
+            {columnItems.map((item) => <tr key={item[4]} className="bg-base-200">{item.map((object) => <td>  {object}  </td> )} <td> <button className='btn btn-warning' onClick={() => {
+                showModal(item[3]);
+            }} > DeleteUser </button> </td> </tr>)}
           </tbody>
         </table>
       </div>
@@ -31,4 +34,4 @@ const DynamicTable = ({columnNames , columnItems } : Props) => {
   )
 }
 
-export default DynamicTable
+export default DeleteDT

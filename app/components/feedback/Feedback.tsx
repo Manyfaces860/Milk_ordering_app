@@ -1,10 +1,10 @@
 "use client";
 
-import { SetStateAction, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { AiOutlineReload } from "react-icons/ai";
 import { GrCheckmark } from "react-icons/gr";
 
-const Feedback = ({ orderId , HideFeedbackAgain, HideFeedbackAgainByCancelButton } : { orderId : number , HideFeedbackAgain : () => void, HideFeedbackAgainByCancelButton : () => void}) => {
+const Feedback = ({ orderId , HideFeedbackAgain, HideFeedbackAgainByCancelButton , deliverydate } : { orderId : number , HideFeedbackAgain : () => void, HideFeedbackAgainByCancelButton : () => void , deliverydate : any}) => {
   const feedbackref = useRef<HTMLTextAreaElement>(null);
   const [showloading, setLoading] = useState(false);
   const [feedbacksent, setFeedBack] = useState(false);
@@ -12,7 +12,7 @@ const Feedback = ({ orderId , HideFeedbackAgain, HideFeedbackAgainByCancelButton
     width: "inherit",
   };
 
-  const handleClick = async (feedback: string , orderId : number) => {
+  const handleClick = async (feedback: string , orderId : number , deliverydate : any) => {
     try {
       setFeedBack(false);
       setLoading(true);
@@ -21,7 +21,7 @@ const Feedback = ({ orderId , HideFeedbackAgain, HideFeedbackAgainByCancelButton
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ feedback: feedback , orderId : orderId }),
+        body: JSON.stringify({ feedback: feedback , orderId : orderId , deliverydate : deliverydate }),
       });
       setLoading(false);
       // const result = await response.json()
@@ -38,7 +38,7 @@ const Feedback = ({ orderId , HideFeedbackAgain, HideFeedbackAgainByCancelButton
 
   return (
     <>
-      <div className="flex flex-col items-start bg-black rounded p-3 justify-between gap-7 absolute -bottom-full left-14 w-3/4">
+      <div className="flex flex-col items-start bg-black rounded p-3 justify-between gap-4 absolute -bottom-full left-14 w-3/4">
         <div className="flex flex-col">
           <p className=" block text-sm text-slate-400">Please provide a feedback</p>
           <p className="block text-slate-400 text-xs">
@@ -72,7 +72,7 @@ const Feedback = ({ orderId , HideFeedbackAgain, HideFeedbackAgainByCancelButton
           onClick={async (event) => {
             event.preventDefault();
             let feedback = feedbackref.current?.value!
-            await handleClick(feedback , orderId);
+            await handleClick(feedback , orderId , deliverydate);
             HideFeedbackAgain()        // after submitting the feedback this function again hides the feedback form, this function comes as a prop from profile page and is also implemented there.
           }}
           >

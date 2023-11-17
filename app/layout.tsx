@@ -6,8 +6,7 @@ import NavBar from './components/navbar/NavBar'
 import AuthProvider from './auth/provider'
 import Link from 'next/link'
 
-
-const inter = Inter({ subsets: ['latin'] })
+// const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -20,14 +19,14 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html lang="en" data-theme="luxury">
+      <body className='bg-orange-200'>
         <AuthProvider>
           <nav>
               <NavBar />
           </nav>
-        </AuthProvider>
           <main className='hero'>{children}</main>
+        </AuthProvider>
       </body>
     </html>
   )
