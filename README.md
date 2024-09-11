@@ -12,11 +12,17 @@ The app was made for ordering milk from vendors.
 First, clone this repository
 
 create an env file and fill the values
-DATABASE_URL= <key>,
-NEXTAUTH_URL=http://localhost:3000,
-NEXTAUTH_SECRET= <key>,
-GOOGLE_CLIENT_ID= <key>,
-GOOGLE_CLIENT_SECRET= <key>,
+
+DATABASE_URL,
+NEXTAUTH_URL http://localhost:3000,
+NEXTAUTH_SECRET,
+GOOGLE_CLIENT_ID,
+GOOGLE_CLIENT_SECRET,
+
+then run 
+``` bash 
+npm install
+```
 
 then, run the development server:
 ```bash
